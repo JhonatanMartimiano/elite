@@ -22,7 +22,7 @@
                         <div class="table-responsive">
                             <form class="form-inline mb-1" action="<?= url('/admin/requests/home'); ?>" method="post">
                                 <div class="nav-search">
-                                    <input type="search" class="form-control header-search" name="s" value="<?= $search; ?>" placeholder="Buscar…" aria-label="Search">
+                                    <input type="search" class="form-control form-control-sm header-search" name="s" value="<?= $search; ?>" placeholder="Buscar…" aria-label="Search">
                                     <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
                                 </div>
                             </form>
@@ -53,6 +53,7 @@
                                                             break;
                                                         case "approved":
                                                             echo "Aprovado";
+                                                            break;
                                                         default:
                                                             echo "Pendente";
                                                             break;

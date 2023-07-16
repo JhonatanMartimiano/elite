@@ -44,7 +44,7 @@
                                             }
                                             ?>
                                             <option disabled value="">Selecionar</option>
-                                            <option <?= $selected("pending") ?> value="pending">Pendente</option>
+                                            <option <?= $selected("processing_order") ?> value="processing_order">Processando Pedido</option>
                                             <option <?= $selected("approved") ?> value="approved">Aprovado</option>
                                             <option <?= $selected("disapproved") ?> value="disapproved">Reprovado</option>
                                         </select>

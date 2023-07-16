@@ -28,17 +28,33 @@ class RequestController extends AdminController
     {
         //search redirect
         if (!empty($data["s"])) {
-            $s = str_search($data["s"]);
+            $s = strtolower(str_search($data["s"]));
+            switch ($s) {
+                case "pendente":
+                    $s = "pending";
+                    break;
+    
+                case "processando pedido":
+                    $s = "processing_order";
+                    break;
+                case "aprovado":
+                    $s = "approved";
+                    break;
+                case "reprovado":
+                    $s = "disapproved";
+                    break;
+            }
             echo json_encode(["redirect" => url("/admin/requests/home/{$s}/1")]);
             return;
         }
 
         $search = null;
+        
         $requests = (new Request())->find();
 
         if (!empty($data["search"]) && str_search($data["search"]) != "all") {
             $search = str_search($data["search"]);
-            $requests = (new Request())->find("document LIKE CONCAT('%', :s, '%') OR benefit_number LIKE CONCAT('%', :s, '%')", "s={$search}");
+            $requests = (new Request())->find("document LIKE CONCAT('%', :s, '%') OR benefit_number LIKE CONCAT('%', :s, '%') OR status LIKE CONCAT('%', :s, '%')", "s={$search}");
             if (!$requests->count()) {
                 $this->message->info("Sua pesquisa não retornou resultados")->flash();
                 redirect("/admin/requests/home");
@@ -48,6 +64,22 @@ class RequestController extends AdminController
         $all = ($search ?? "all");
         $pager = new Pager(url("/admin/requests/home/{$all}/"));
         $pager->pager($requests->count(), 20, (!empty($data["page"]) ? $data["page"] : 1));
+
+        switch ($search) {
+            case "pending":
+                $search = "Pendente";
+                break;
+
+            case "processing_order":
+                $search = "Processando Pedido";
+                break;
+            case "approved":
+                $search = "Aprovado";
+                break;
+            case "disapproved":
+                $search = "Reprovado";
+                break;
+        }
 
         $head = $this->seo->render(
             CONF_SITE_NAME . " | Pedidos",
