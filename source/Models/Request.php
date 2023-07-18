@@ -14,7 +14,7 @@ class Request extends Model
      */
     public function __construct()
     {
-        parent::__construct("requests", ["id"], ["document", "benefit_number", "client_id"]);
+        parent::__construct("requests", ["id"], ["document", "benefit_number", "value", "client_id"]);
     }
 
     /**

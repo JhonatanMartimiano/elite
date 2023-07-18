@@ -22,7 +22,7 @@
                             <form action="<?= url('/app/requests/request'); ?>" method="post">
                                 <input type="hidden" name="action" value="create">
                                 <div class="form-row">
-                                    <div class="col-md-4"></div>
+                                    <div class="col-md-3"></div>
                                     <div class="form-group col-md-2">
                                         <label>CPF</label>
                                         <input type="text" class="form-control mask-doc" name="document">
@@ -31,7 +31,11 @@
                                         <label>Número Benefício</label>
                                         <input type="text" class="form-control" name="benefit_number">
                                     </div>
-                                    <div class="col-md-4"></div>
+                                    <div class="form-group col-md-2">
+                                        <label>Valor</label>
+                                        <input type="text" class="form-control mask-money" name="value">
+                                    </div>
+                                    <div class="col-md-3"></div>
                                 </div>
                                 <button type="submit" class="btn btn-success ">Criar</button>
                             </form>
@@ -63,7 +67,7 @@
                             <form action="<?= url('/app/requests/request/' . $request->id); ?>" method="post">
                                 <input type="hidden" name="action" value="update">
                                 <div class="form-row">
-                                    <div class="col-md-4"></div>
+                                    <div class="col-md-3"></div>
                                     <div class="form-group col-md-2">
                                         <label>CPF</label>
                                         <input type="text" class="form-control mask-doc" name="document" value="<?= $request->document; ?>" readonly>
@@ -72,7 +76,11 @@
                                         <label>Número Benefício</label>
                                         <input type="text" class="form-control" name="benefit_number" value="<?= $request->benefit_number; ?>" readonly>
                                     </div>
-                                    <div class="col-md-4"></div>
+                                    <div class="form-group col-md-2">
+                                        <label>Valor</label>
+                                        <input type="text" class="form-control mask-money" name="value" value="<?= $request->value ?>" readonly>
+                                    </div>
+                                    <div class="col-md-3"></div>
                                     <?php if ($request->attachment) : ?>
                                         <div class="col-md-4"></div>
                                         <div class="col-md-4">

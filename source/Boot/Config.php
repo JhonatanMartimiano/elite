@@ -6,10 +6,10 @@
  */
 define("CONF_IP_HOST", "192.168.1.15");
 if ($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == CONF_IP_HOST) {
-    define("CONF_DB_HOST", "elitepromotora.com.br");
-    define("CONF_DB_USER", "u862750058_usuario");
-    define("CONF_DB_PASS", "Joao9098@");
-    define("CONF_DB_NAME", "u862750058_usuario");
+    define("CONF_DB_HOST", "mysql");
+    define("CONF_DB_USER", "root");
+    define("CONF_DB_PASS", "");
+    define("CONF_DB_NAME", "databasedefault");
     define("CONF_URL_TEST", "http://localhost");
 } else {
     define("CONF_DB_HOST", "localhost");

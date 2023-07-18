@@ -3,6 +3,7 @@
 namespace Source\App\App;
 
 use Source\Models\Request;
+use Source\Models\User;
 use Source\Support\Pager;
 use Source\Support\Thumb;
 use Source\Support\Upload;
@@ -76,11 +77,29 @@ class RequestController extends AdminController
         //create
         if (!empty($data["action"]) && $data["action"] == "create") {
             $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-
+            $value = str_replace(",", ".", $data["value"]);
             $requestCreate = new Request();
             $requestCreate->document = clean_mask($data["document"]);
             $requestCreate->benefit_number = $data["benefit_number"];
+            $requestCreate->value = $value;
             $requestCreate->client_id = user()->id;
+
+            if (user()->wallet < $value + 1) {
+                $json["message"] = $this->message->warning("O valor do pedido é maior que seu saldo, reveja o seu saldo e tenha em mente que o valor do pedido é de R$ 1,00.")->render();
+                echo json_encode($json);
+                return;
+            }
+
+            $wallet = user()->wallet - ($value + 1);
+
+            $clientUpdateWallet = (new User())->findById(user()->id);
+            $clientUpdateWallet->wallet = $wallet;
+
+            if (!$clientUpdateWallet->save()) {
+                $json["message"] = $clientUpdateWallet->message()->render();
+                echo json_encode($json);
+                return;
+            }
 
             if (!$requestCreate->save()) {
                 $json["message"] = $requestCreate->message()->render();

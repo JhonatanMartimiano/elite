@@ -35,6 +35,7 @@
                                         <th>ID</th>
                                         <th>CPF</th>
                                         <th>Número Benefício</th>
+                                        <th>Valor</th>
                                         <th>Status</th>
                                         <th>Ações</th>
                                     </tr>
@@ -46,6 +47,7 @@
                                                 <th scope="row"><?= $request->id; ?></th>
                                                 <td class="mask-doc"><?= $request->document; ?></td>
                                                 <td><?= $request->benefit_number; ?></td>
+                                                <td><?= $request->value; ?></td>
                                                 <td>
                                                     <?php
                                                     switch ($request->status) {
